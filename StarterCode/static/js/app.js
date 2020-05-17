@@ -171,19 +171,36 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 // // var sampleFields = ["id", "otu_ids", "sample_values", "otu_labels"];
 
     var people = unpack(rows.samples, 'id'),
-        all_samples      = unpack(rows.samples, 'sample_values'),
-        allOTU_ids       = unpack(rows.samples, 'otu_ids'),
-        allOTU_labels    = unpack(rows.samples,'otu_labels'),
-        listofPeople  = [],
+        all_samples       = unpack(rows.samples, 'sample_values'),
+        allOTU_ids        = unpack(rows.samples, 'otu_ids'),
+        allOTU_labels     = unpack(rows.samples,'otu_labels'),
+        listofPeople      = [],
         currentPerson,
-        current_sample       = [],
-        current_otu_id = [], 
+        current_sample    = [],
+        current_otu_id    = [], 
         current_otu_label = [];
 
-    console.log (all_samples)
-    console.log (allOTU_ids)
-    console.log (allOTU_labels)
-    console.log (people)
+    // console.log (all_samples)
+    // console.log (allOTU_ids)
+    // console.log (allOTU_labels)
+    // console.log (people)
+
+
+    var metadata         = unpack(rows.metadata, 'id'), 
+        allEthnicity     = unpack(rows.metadata, 'ethnicity'), 
+        allGender        = unpack(rows.metadata, 'gender'),
+        allAges          = unpack(rows.metadata, 'age'),
+        allLocations     = unpack(rows.metadata, 'location'),
+        allBBType        = unpack(rows.metadata, 'bbtype'),
+        allWashFrequency = unpack(rows.metadata, 'wfreq');
+
+    console.log(allEthnicity);
+    console.log(allGender);
+    console.log(allAges);
+    console.log(allLocations);
+    console.log(allBBType);
+    console.log(allWashFrequency);
+    console.log(metadata);
 
 
     for (var i = 0; i < people.length; i++ ){
@@ -196,13 +213,33 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         current_sample      = [];
         current_otu_id      = [];
         current_otu_label   = [];
+        demographicInfo     = [];
         for (var i = 0 ; i < people.length ; i++){
-            console.log(people[i] + "===" + chosenPerson)
+            //console.log(people[i] + "===" + chosenPerson)
             if ( people[i] === chosenPerson ) {
-                console.log("true");
+                //console.log("true");
                 current_sample.push(all_samples[i]);
                 current_otu_id.push(allOTU_ids[i]);
                 current_otu_label.push(allOTU_labels[i]);
+
+                var demographicInfo= {"id"        :chosenPerson,
+                                      "ethnicity" :allEthnicity[i],
+                                      "gender"    :allGender[i],
+                                      "age"       :allAges[i], 
+                                      "location"  :allLocations[i], 
+                                      "bbType"    :allBBType[i], 
+                                      "washFreq"  :allWashFrequency[i]};
+
+                console.log("ID",        demographicInfo.id);
+                console.log("Ethnicity", demographicInfo.ethnicity);
+                console.log("Gender",    demographicInfo.gender);
+                console.log("Age",       demographicInfo.age);
+                console.log("Location",  demographicInfo.location);
+                console.log("BBType",    demographicInfo.bbType);
+                console.log("WashFreq",  demographicInfo.washFreq);
+
+
+
             }
         }
     };
@@ -222,22 +259,28 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         //console.log("SORTED: ", x_otu);
         y_samples = current_sample[0].filter(function(d, i) {return i < 10;});
         y = current_otu_id[0].filter(function(d,i) {return i<10;});
-        console.log(y_samples);
-        console.log(y);
 
+        text_labels = current_otu_label[0].filter(function(d,i) {return i<10;});
+        text_labels.reverse();
+        console.log(text_labels)
+        y.reverse();
+        y = y.map(function(d, i) {return ("OTU "+d)});
+
+        console.log("y_samples: ", y_samples);
+        console.log("y:, ", y);
         y_samples.sort(d3.ascending);
         x_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
         //TODO
         //GET LABELS WORKING 
-        
+
         var trace1 = {
             x: y_samples,
-            y: (d,i)=>y[i],
+            y: y,
             type: 'bar',
             mode: 'bar+text',
-            text: (d, i)=>(y[i]),
+            text: text_labels,
             orientation: 'h',
             marker: {
                 size: 12,
@@ -251,12 +294,124 @@ Plotly.d3.json("./samples.json", function (error, rows) {
             title:'',
             height: 400,
             width: 480,
+
             // range: [0, 20],
             // domain: [0, 2000],
 
         };
 
         Plotly.newPlot('plot', data, layout);
+
+        x_values     = current_otu_id[0];
+        //console.log(x_values);
+        y_values     = current_sample[0];
+        marker_size  = current_sample[0];
+        marker_color = current_otu_id[0];
+        text_values  = current_otu_label[0]
+
+        var trace2 = {
+            x: x_values,
+            y: y_values,
+            text: text_values,
+            mode: 'markers',
+            marker: {
+              color: marker_color,
+              size: marker_size
+            }
+          };
+          
+          var data = [trace2];
+          
+          var layout = {
+            title: 'Bubble Chart Hover Text',
+            showlegend: false,
+            xaxis:{title:{text:'OTU ID'}},
+            height: 600,
+            width: 600
+          };
+                    
+          
+          Plotly.newPlot('bubble_plot', data, layout);
+
+          var data = [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: 9,
+              title: { text: "Scrubs per week" },
+              type: "indicator",
+              mode: "gauge",
+              delta: { reference: 1 },
+              gauge: {
+                axis: { range: [null, 9] },
+                steps: [
+                  { range: [0, 1], color: "BlanchedAlmond" },
+                  { range: [1, 2], color: "Bisque" },
+                  { range: [2, 3], color: "Beige" },
+                  { range: [3, 4], color: "LemonChiffon" },
+                  { range: [4, 5], color: "Khaki" },
+                  { range: [5, 6], color: "DarkKhaki" },
+                  { range: [6, 7], color: "DarkSeaGreen" },
+                  { range: [7, 8], color: "DarkOliveGreen" },
+                  { range: [8, 9], color: "DarkGreen" }
+                ],
+                // threshold: {
+                //   line: { color: "red", width: 4 },
+                //   thickness: 0.75,
+                //   value: 8
+                // }
+              }
+            }
+          ];
+          
+          var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+          Plotly.newPlot('guage-chart', data, layout);
+
+// var traceA = {
+//   type: "pie",
+//   showlegend: false,
+//   hole: 0.4,
+//   rotation: 90,
+//   values: [100 / 5, 100 / 5, 100 / 5, 100 / 5, 100 / 5, 100],
+//   text: ["Very Low", "Low", "Average", "Good", "Excellent", ""],
+//   direction: "clockwise",
+//   textinfo: "text",
+//   textposition: "inside",
+//   marker: {
+//     colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 165, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(144, 238, 144, 0.6)", "rgba(154, 205, 50, 0.6)", "white"]
+//   },
+//   labels: ["0-10", "10-50", "50-200", "200-500", "500-2000", ""],
+//   hoverinfo: "label"
+// };
+
+// var degrees = 115, radius = .6;
+// var radians = degrees * Math.PI / 180;
+// var x = -1 * radius * Math.cos(radians);
+// var y = radius * Math.sin(radians);
+
+// var layout = {
+//   shapes:[{
+//       type: 'line',
+//       x0: 0,
+//       y0: 0,
+//       x1: x,
+//       y1: 0.5,
+//       line: {
+//         color: 'black',
+//         width: 8
+//       }
+//     }],
+//   title: 'Number of Printers Sold in a Week',
+//   xaxis: {visible: false, range: [-1, 1]},
+//   yaxis: {visible: false, range: [-1, 1]}
+// };
+
+// var data = [traceA];
+
+
+
+
+
+
     };
 
     var innerContainer = document.querySelector('[data-num="0"'),
