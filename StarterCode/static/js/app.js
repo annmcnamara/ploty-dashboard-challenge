@@ -272,8 +272,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         x_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
-        //TODO
-        //GET LABELS WORKING 
+        // BAR CHART
 
         var trace1 = {
             x: y_samples,
@@ -300,8 +299,9 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
         };
 
-        Plotly.newPlot('plot', data, layout);
+        //Plotly.newPlot('plot', data, layout);
 
+        // SCATTER CHART
         x_values     = current_otu_id[0];
         //console.log(x_values);
         y_values     = current_sample[0];
@@ -331,7 +331,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
           };
                     
           
-          Plotly.newPlot('bubble_plot', data, layout);
+          //Plotly.newPlot('bubble_plot', data, layout);
 
           var data = [
             {
@@ -341,10 +341,14 @@ Plotly.d3.json("./samples.json", function (error, rows) {
               type: "indicator",
               mode: "gauge",
               delta: { reference: 1 },
+              text: ["1", "2", "3", "4", "5", "","6", "7", "8", "9"],
               gauge: {
                 axis: { range: [null, 9] },
+                //we dont want to see the bar so we can set the 
+                //thickness to 0 
+                bar:{thickness:0},
                 steps: [
-                  { range: [0, 1], color: "BlanchedAlmond" },
+                  { range: [0, 1], color: "red" },
                   { range: [1, 2], color: "Bisque" },
                   { range: [2, 3], color: "Beige" },
                   { range: [3, 4], color: "LemonChiffon" },
@@ -354,7 +358,12 @@ Plotly.d3.json("./samples.json", function (error, rows) {
                   { range: [7, 8], color: "DarkOliveGreen" },
                   { range: [8, 9], color: "DarkGreen" }
                 ],
-                // threshold: {
+                marker: {
+                    colors: ['','','','','','','','','','white'],
+                    labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
+                    hoverinfo: 'label'
+                  }
+      // threshold: {
                 //   line: { color: "red", width: 4 },
                 //   thickness: 0.75,
                 //   value: 8
@@ -363,8 +372,108 @@ Plotly.d3.json("./samples.json", function (error, rows) {
             }
           ];
           
-          var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
-          Plotly.newPlot('guage-chart', data, layout);
+        //   var theta = -90;
+        //   var radians = theta * Math.PI / 180;
+
+        //   var x = 0.5;
+        //   var y = 0.25;
+
+        // //   var x = -1 * radius * Math.cos(radians);
+        // //   var y = radius * Math.sin(radians);
+
+        // //rotate
+        // x += (x * Math.cos(radians)) - (y * Math.sin(radians));
+        // y += (x * Math.sin(radians)) + (y * Math.cos(radians));
+        var degrees = 300, radius = .6;
+        var radians = degrees * Math.PI / 180;
+        var x = -1 * radius * Math.cos(radians);
+        var y = radius * Math.sin(radians)
+
+          console.log(x+" "+y);
+          var x0 = 0.50;
+          var y0 = 0.25;
+        //   x = 0.5;
+        //   y = .5;
+          var layout = { 
+            shapes:[
+                //transform = {rotate:55},  
+
+                // {
+                // type: 'line',
+                // x0: x0,
+                // y0: y0,
+                // x1: x,
+                // y1: .5,
+                // line: {
+                //   color: 'gray',
+                //   width: 8
+                // },
+              {                
+                type:'path', 
+                //path: 'M 0.5 0.25 L 0.25 0.65 L 0.245 0.5 Z'
+            
+                path:" M 0.49 0.25 L 0.50 0.57 L 0.51 0.25 Z",
+                path:" M 0.49 0.25 L 0.50 0.37 L 0.51 0.25 Z",
+                path:" M 0.49 0.25 L -1 0.57 L 0.51 0.25 Z",
+                path:" M 0.49 0.25 L 0.9 0.4 L 0.51 0.3 Z",
+                
+                fillcolor:"LightPink",
+                line_color:"Crimson",
+                
+                
+            
+            },
+            {type:'circle',
+            fillcolor:"PaleTurquoise",
+            x0:0.50,
+            y0:0.0,
+            x1:.55,
+            y1:.35,
+            line_color:"LightSeaGreen",
+            }
+
+            ],
+            
+         width: 600, height: 450, margin: { t: 0, b: 0 } };
+          
+         Plotly.newPlot('guage-chart', data, layout);
+
+
+//A rotated base chart creation
+
+
+// var data = [
+//     {
+//       domain: { x: [0, 1], y: [0, 1] },
+//       value: 450,
+//       title: { text: "Speed" },
+//       type: "indicator",
+//       color:"red",
+//       mode: "gauge+number+delta",
+//       delta: { reference: 380, increasing:{color:"RebeccaPurple"}},
+//       //delta = {'reference': 400, 'increasing':{'color': "RebeccaPurple"},
+//       gauge: {
+//         bar:{color:"white", thickness:0},
+  
+//         axis: { range: [null, 500] },
+//         steps: [
+//           { range: [0, 250], color: "lightgray" },
+//           { range: [250, 400], color: "gray" }
+//         ],
+//         threshold: {
+//           line: { color: "red", width: 4 },
+//           thickness: 0.75,
+//           value: 490
+//         }
+//       }
+//     }
+//   ];
+
+// fig = {"data": [base_chart, meter_chart],
+//        "layout": layout}
+// ofl.iplot(fig, filename='gauge-meter-chart')
+// Plotly.newPlot('guage-chart2',  data, layout);
+
 
 // var traceA = {
 //   type: "pie",
