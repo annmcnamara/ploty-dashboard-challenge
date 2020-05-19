@@ -3,47 +3,57 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>d3 Updating Bar Chart With Dropdown</title>
+        <title>Bellybutton Biodiversity</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <style>
-        body {
-            font: 10px sans-serif;
-        }
-        select {
-            display: block;
-        }
-        .bar {
-            fill: purple;
-            opacity: 0.8;
-        }
-
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: #000;
-            shape-rendering: crispEdges;
-        }
-        </style>
+        <script src="https://unpkg.com/gauge-chart@latest/dist/bundle.js"></script>
     </head>
+
+
+
     <body>
-      <div class="showcase__section" id="bubble">
-        <div class="spacer --small"></div>
-        <div id="bubbleplots">
-          <div class="bubbleplot" data-num="0">
-            <div class="plot" id="plot"></div>
+      <div class="container">
 
-            <div class="bubble_plot" id="bubble_plot"></div>
-            <div class="guage-chart" id="guage-chart"></div>
-            <div class="guage-chart2" id="guage-chart"></div>
+        <div class="row">
+          <div class="col-md-12 jumbotron text-center">
+            <h1>Belly Button Biodiversity Dashboard</h1>
+            <p>Use the interactive charts below to explore the dataset</p>
+          </div>
+        </div>
 
-            <div class="control-row">
-              Person ID: <select class="persondata">
-              </select>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="well" data-num="1">                
+              <h5>Test Subject ID No.:</h5>
+              <select class="persondata"></select>
+              <br>
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Demographic Info</h3>
+                </div>
+                <div id="sample-metadata" class="panel-body"></div>
+              </div>
             </div>
+          </div>
+
+          <div class="col-md-5">
+            <div id="bar"></div>
+            <div class="plot" id="plot"></div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="guage-chart" id="guage-chart"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="bubble_plot" id="bubble_plot"></div>
           </div>
         </div>
       </div>
-        <script src="static/js/app.js"></script>
+       
+    <script src="static/js/app.js"></script>
     </body>
 </html>

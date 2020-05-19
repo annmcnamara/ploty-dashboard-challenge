@@ -1,174 +1,7 @@
-// // // Load and munge data, then make the visualization.
-// // var fileName = "./cereal-detailed.csv";
-
-// // var nutritionFields = ["calories", "protein", "fat", "sodium", "fiber",
-// //                                    "carbs", "sugars", "potassium", "vitamins"];
-
-// // var demographicFields = ["id", "ethnicity", "gender", "age", "location", "bbtype", "wfreq"];
-// // var sampleFields = ["id", "otu_ids", "sample_values", "otu_labels"];
-
-// // var samples = "./samples.json";
-// // d3.json("./samples.json", function (error, data) {
-// //     console.log("data", data);
-// //     var sampleMap = {};
-    
-// //     data.samples.forEach(function(d) {
-// //         var id = d.id;
-// //         sampleMap[id] = [];
-
-// //     // { id: [ bar1Val, bar2Val, ... ] }
-// //         d.sample_values.forEach(function(field) {
-// //             console.log(field);
-// //             sampleMap[id].push( field );
-// //         });
-
-// //         // sampleFields.forEach(function(field) {
-// //         //         if(field.length > 1) { console.log(field, +d[field])} ;
-// //         //         sampleMap[id].push( +d[field] );
-// //         // });
-// //     });
-// //     console.log("MAP", sampleMap);
-// //     makeVis(sampleMap);
-
-// //   });
-
-// // d3.json("./samples.jsaon").then(function(error, data){
-// //     var sampleMap  = {};
-// //     data.forEach(function(d){
-// //         console.log(d);
-// //         // var sample = d.id;
-// //         // sampleMap[sample] = [];
-// //         // sampleFields.forEach(function(field){
-// //         //     sampleMap[sample].push( +d[field] );
-// //         // })
-// //     })
-// //     console.log(sampleMap) 
-// // });
-// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv').then(
-// function(err, rows){
-
-//     function unpack(rows, key) {
-//         return rows.map(function(row) { return row[key]; });
-//     }
-
-//     var allCountryNames = unpack(rows, 'country'),
-//         allYear = unpack(rows, 'year'),
-//         allGdp = unpack(rows, 'gdpPercap'),
-//         listofCountries = [],
-//         currentCountry,
-//         currentGdp = [],
-//         currentYear = [];
-
-//     for (var i = 0; i < allCountryNames.length; i++ ){
-//         if (listofCountries.indexOf(allCountryNames[i]) === -1 ){
-//             listofCountries.push(allCountryNames[i]);
-//         }
-//     }
-
-//     function getCountryData(chosenCountry) {
-//         currentGdp = [];
-//         currentYear = [];
-//         for (var i = 0 ; i < allCountryNames.length ; i++){
-//             if ( allCountryNames[i] === chosenCountry ) {
-//                 currentGdp.push(allGdp[i]);
-//                 currentYear.push(allYear[i]);
-//             }
-//         }
-//     };
-
-//     // Default Country Data
-//     setBubblePlot('Afghanistan');
-
-//     function setBubblePlot(chosenCountry) {
-//         getCountryData(chosenCountry);
-
-//         var trace1 = {
-//             x: currentYear,
-//             y: currentGdp,
-//             mode: 'lines+markers',
-//             marker: {
-//                 size: 12,
-//                 opacity: 0.5
-//             }
-//         };
-
-//         var data = [trace1];
-
-//         var layout = {
-//             title:'Line and Scatter Plot',
-//             height: 400,
-//             width: 480
-//         };
-
-//         Plotly.newPlot('myDiv', data, layout);
-//     };
-
-//     var innerContainer = document.querySelector('[data-num="0"'),
-//         plotEl = innerContainer.querySelector('.plot'),
-//         countrySelector = innerContainer.querySelector('.countrydata');
-
-//     function assignOptions(textArray, selector) {
-//         for (var i = 0; i < textArray.length;  i++) {
-//             var currentOption = document.createElement('option');
-//             currentOption.text = textArray[i];
-//             selector.appendChild(currentOption);
-//         }
-//     }
-
-//     assignOptions(listofCountries, countrySelector);
-
-//     function updateCountry(){
-//         setBubblePlot(countrySelector.value);
-//     }
-
-//     countrySelector.addEventListener('change', updateCountry, false);
-// });
-
-// Initializes the page with a default plot
-// function init() {
-//     data = [{
-//       x: [1, 2, 3, 4, 5],
-//       y: [1, 2, 4, 8, 16] }];
-  
-//     Plotly.newPlot("plot", data);
-//   }
-  
-//   // Call updatePlotly() when a change takes place to the DOM
-//   d3.selectAll("#selDataset").on("change", updatePlotly);
-  
-//   // This function is called when a dropdown menu item is selected
-//   function updatePlotly() {
-//     // Use D3 to select the dropdown menu
-//     var dropdownMenu = d3.select("#selDataset");
-//     // Assign the value of the dropdown menu option to a variable
-//     var dataset = dropdownMenu.property("value");
-  
-//     // Initialize x and y arrays
-//     var x = [];
-//     var y = [];
-  
-//     if (dataset === 'dataset1') {
-//       x = [1, 2, 3, 4, 5];
-//       y = [1, 2, 4, 8, 16];
-//     }
-  
-//     if (dataset === 'dataset2') {
-//       x = [10, 20, 30, 40, 50];
-//       y = [1, 10, 100, 1000, 10000];
-//     }
-  
-//     // Note the extra brackets around 'x' and 'y'
-//     Plotly.restyle("plot", "x", [x]);
-//     Plotly.restyle("plot", "y", [y]);
-//   }
-  
-//   init();
-
 Plotly.d3.json("./samples.json", function (error, rows) {
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
-// // var sampleFields = ["id", "otu_ids", "sample_values", "otu_labels"];
 
     var people = unpack(rows.samples, 'id'),
         all_samples       = unpack(rows.samples, 'sample_values'),
@@ -192,15 +25,16 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         allAges          = unpack(rows.metadata, 'age'),
         allLocations     = unpack(rows.metadata, 'location'),
         allBBType        = unpack(rows.metadata, 'bbtype'),
-        allWashFrequency = unpack(rows.metadata, 'wfreq');
+        allWashFrequency = unpack(rows.metadata, 'wfreq'), 
+        currentDemographics = [];
 
-    console.log(allEthnicity);
-    console.log(allGender);
-    console.log(allAges);
-    console.log(allLocations);
-    console.log(allBBType);
-    console.log(allWashFrequency);
-    console.log(metadata);
+    // console.log(allEthnicity);
+    // console.log(allGender);
+    // console.log(allAges);
+    // console.log(allLocations);
+    // console.log(allBBType);
+    // console.log(allWashFrequency);
+    // console.log(metadata);
 
 
     for (var i = 0; i < people.length; i++ ){
@@ -213,7 +47,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         current_sample      = [];
         current_otu_id      = [];
         current_otu_label   = [];
-        demographicInfo     = [];
+        currentDemographics     = [];
         for (var i = 0 ; i < people.length ; i++){
             //console.log(people[i] + "===" + chosenPerson)
             if ( people[i] === chosenPerson ) {
@@ -222,7 +56,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
                 current_otu_id.push(allOTU_ids[i]);
                 current_otu_label.push(allOTU_labels[i]);
 
-                var demographicInfo= {"id"        :chosenPerson,
+                var demographicInfo= {"id"        :chosenPerson,  //or could use metadata[i] here
                                       "ethnicity" :allEthnicity[i],
                                       "gender"    :allGender[i],
                                       "age"       :allAges[i], 
@@ -230,22 +64,20 @@ Plotly.d3.json("./samples.json", function (error, rows) {
                                       "bbType"    :allBBType[i], 
                                       "washFreq"  :allWashFrequency[i]};
 
-                console.log("ID",        demographicInfo.id);
-                console.log("Ethnicity", demographicInfo.ethnicity);
-                console.log("Gender",    demographicInfo.gender);
-                console.log("Age",       demographicInfo.age);
-                console.log("Location",  demographicInfo.location);
-                console.log("BBType",    demographicInfo.bbType);
-                console.log("WashFreq",  demographicInfo.washFreq);
+                // console.log("ID",        demographicInfo.id);
+                // console.log("Ethnicity", demographicInfo.ethnicity);
+                // console.log("Gender",    demographicInfo.gender);
+                // console.log("Age",       demographicInfo.age);
+                // console.log("Location",  demographicInfo.location);
+                // console.log("BBType",    demographicInfo.bbType);
+                // console.log("WashFreq",  demographicInfo.washFreq);
 
-
+                currentDemographics.push(demographicInfo);
 
             }
         }
     };
 
-    // var trythis = getPersonData("940");
-    // console.log(current_sample)
 
     //set the default
     setBubblePlot('940');
@@ -254,9 +86,8 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         getPersonData(chosenPerson);
         console.log(current_sample[0]);
         console.log(current_otu_id[0]);
+        console.log(currentDemographics[0]);
 
-        //x_otu = current_otu_id[0].sort(d3.descending);
-        //console.log("SORTED: ", x_otu);
         y_samples = current_sample[0].filter(function(d, i) {return i < 10;});
         y = current_otu_id[0].filter(function(d,i) {return i<10;});
 
@@ -271,6 +102,16 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         y_samples.sort(d3.ascending);
         x_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+        // Clear the panel
+        d3.select("#sample-metadata").html("");
+        // Update the panel
+        d3.select("#sample-metadata").append("p").text("ID: "        + currentDemographics[0].id);
+        d3.select("#sample-metadata").append("p").text("Ethnicity: " + currentDemographics[0].ethnicity);
+        d3.select("#sample-metadata").append("p").text("Gender: "    + currentDemographics[0].gender);
+        d3.select("#sample-metadata").append("p").text("Age: "       + currentDemographics[0].age);
+        d3.select("#sample-metadata").append("p").text("Location: "  + currentDemographics[0].location);
+        d3.select("#sample-metadata").append("p").text("BB Type: "   + currentDemographics[0].bbType);
+        d3.select("#sample-metadata").append("p").text("Wash Freq: " + currentDemographics[0].washFreq);
 
         // BAR CHART
 
@@ -293,17 +134,16 @@ Plotly.d3.json("./samples.json", function (error, rows) {
             title:'',
             height: 400,
             width: 480,
-
             // range: [0, 20],
             // domain: [0, 2000],
 
         };
 
-        //Plotly.newPlot('plot', data, layout);
+        Plotly.newPlot('plot', data, layout);
 
         // SCATTER CHART
+
         x_values     = current_otu_id[0];
-        //console.log(x_values);
         y_values     = current_sample[0];
         marker_size  = current_sample[0];
         marker_color = current_otu_id[0];
@@ -323,208 +163,46 @@ Plotly.d3.json("./samples.json", function (error, rows) {
           var data = [trace2];
           
           var layout = {
-            title: 'Bubble Chart Hover Text',
+            title: '',  
             showlegend: false,
             xaxis:{title:{text:'OTU ID'}},
-            height: 600,
-            width: 600
+            // height: 800,  //take full extent of space
+            // width: 1000
           };
                     
           
-          //Plotly.newPlot('bubble_plot', data, layout);
-
-          var data = [
-            {
-              domain: { x: [0, 1], y: [0, 1] },
-              value: 9,
-              title: { text: "Scrubs per week" },
-              type: "indicator",
-              mode: "gauge",
-              delta: { reference: 1 },
-              text: ["1", "2", "3", "4", "5", "","6", "7", "8", "9"],
-              gauge: {
-                axis: { range: [null, 9] },
-                //we dont want to see the bar so we can set the 
-                //thickness to 0 
-                bar:{thickness:0},
-                steps: [
-                  { range: [0, 1], color: "red" },
-                  { range: [1, 2], color: "Bisque" },
-                  { range: [2, 3], color: "Beige" },
-                  { range: [3, 4], color: "LemonChiffon" },
-                  { range: [4, 5], color: "Khaki" },
-                  { range: [5, 6], color: "DarkKhaki" },
-                  { range: [6, 7], color: "DarkSeaGreen" },
-                  { range: [7, 8], color: "DarkOliveGreen" },
-                  { range: [8, 9], color: "DarkGreen" }
-                ],
-                marker: {
-                    colors: ['','','','','','','','','','white'],
-                    labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
-                    hoverinfo: 'label'
-                  }
-      // threshold: {
-                //   line: { color: "red", width: 4 },
-                //   thickness: 0.75,
-                //   value: 8
-                // }
-              }
-            }
-          ];
-          
-        //   var theta = -90;
-        //   var radians = theta * Math.PI / 180;
-
-        //   var x = 0.5;
-        //   var y = 0.25;
-
-        // //   var x = -1 * radius * Math.cos(radians);
-        // //   var y = radius * Math.sin(radians);
-
-        // //rotate
-        // x += (x * Math.cos(radians)) - (y * Math.sin(radians));
-        // y += (x * Math.sin(radians)) + (y * Math.cos(radians));
-        var degrees = 300, radius = .6;
-        var radians = degrees * Math.PI / 180;
-        var x = -1 * radius * Math.cos(radians);
-        var y = radius * Math.sin(radians)
-
-          console.log(x+" "+y);
-          var x0 = 0.50;
-          var y0 = 0.25;
-        //   x = 0.5;
-        //   y = .5;
-          var layout = { 
-            shapes:[
-                //transform = {rotate:55},  
-
-                // {
-                // type: 'line',
-                // x0: x0,
-                // y0: y0,
-                // x1: x,
-                // y1: .5,
-                // line: {
-                //   color: 'gray',
-                //   width: 8
-                // },
-              {                
-                type:'path', 
-                //path: 'M 0.5 0.25 L 0.25 0.65 L 0.245 0.5 Z'
-            
-                path:" M 0.49 0.25 L 0.50 0.57 L 0.51 0.25 Z",
-                path:" M 0.49 0.25 L 0.50 0.37 L 0.51 0.25 Z",
-                path:" M 0.49 0.25 L -1 0.57 L 0.51 0.25 Z",
-                path:" M 0.49 0.25 L 0.9 0.4 L 0.51 0.3 Z",
-                
-                fillcolor:"LightPink",
-                line_color:"Crimson",
-                
-                
-            
-            },
-            {type:'circle',
-            fillcolor:"PaleTurquoise",
-            x0:0.50,
-            y0:0.0,
-            x1:.55,
-            y1:.35,
-            line_color:"LightSeaGreen",
-            }
-
-            ],
-            
-         width: 600, height: 450, margin: { t: 0, b: 0 } };
-          
-         Plotly.newPlot('guage-chart', data, layout);
+          Plotly.newPlot('bubble_plot', data, layout);
 
 
-//A rotated base chart creation
+          // GAUGE CHART
+           // Element inside which you want to see the chart
+          var element = document.querySelector('#guage-chart')
+          d3.select("#guage-chart").html("");
 
 
-// var data = [
-//     {
-//       domain: { x: [0, 1], y: [0, 1] },
-//       value: 450,
-//       title: { text: "Speed" },
-//       type: "indicator",
-//       color:"red",
-//       mode: "gauge+number+delta",
-//       delta: { reference: 380, increasing:{color:"RebeccaPurple"}},
-//       //delta = {'reference': 400, 'increasing':{'color': "RebeccaPurple"},
-//       gauge: {
-//         bar:{color:"white", thickness:0},
-  
-//         axis: { range: [null, 500] },
-//         steps: [
-//           { range: [0, 250], color: "lightgray" },
-//           { range: [250, 400], color: "gray" }
-//         ],
-//         threshold: {
-//           line: { color: "red", width: 4 },
-//           thickness: 0.75,
-//           value: 490
-//         }
-//       }
-//     }
-//   ];
+          // Properties of the gauge
+          var gaugeOptions = {
+            outerNeedle: false,
+            hasNeedle: true,
+            needleColor: '#860000',
+            needleUpdateSpeed: 1000,
+            arcColors: ['#F7F3EC', '#F3F1E4', '#E8E7C9', '#E5E9B1', '#D5E595', '#B7CD8B', '#87C180', '#85BD8B' ,'#85BD8B', '#80B587'],
+            arcDelimiters: [11,22,33,44,55,66,77,88],
+            arcLabels: ['1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9','8-9'],
+            arcOverEffect: true, 
+            rangeLabel: ['0', '9'],
+            //centralLabel: '.2',
+          }
 
-// fig = {"data": [base_chart, meter_chart],
-//        "layout": layout}
-// ofl.iplot(fig, filename='gauge-meter-chart')
-// Plotly.newPlot('guage-chart2',  data, layout);
-
-
-// var traceA = {
-//   type: "pie",
-//   showlegend: false,
-//   hole: 0.4,
-//   rotation: 90,
-//   values: [100 / 5, 100 / 5, 100 / 5, 100 / 5, 100 / 5, 100],
-//   text: ["Very Low", "Low", "Average", "Good", "Excellent", ""],
-//   direction: "clockwise",
-//   textinfo: "text",
-//   textposition: "inside",
-//   marker: {
-//     colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 165, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(144, 238, 144, 0.6)", "rgba(154, 205, 50, 0.6)", "white"]
-//   },
-//   labels: ["0-10", "10-50", "50-200", "200-500", "500-2000", ""],
-//   hoverinfo: "label"
-// };
-
-// var degrees = 115, radius = .6;
-// var radians = degrees * Math.PI / 180;
-// var x = -1 * radius * Math.cos(radians);
-// var y = radius * Math.sin(radians);
-
-// var layout = {
-//   shapes:[{
-//       type: 'line',
-//       x0: 0,
-//       y0: 0,
-//       x1: x,
-//       y1: 0.5,
-//       line: {
-//         color: 'black',
-//         width: 8
-//       }
-//     }],
-//   title: 'Number of Printers Sold in a Week',
-//   xaxis: {visible: false, range: [-1, 1]},
-//   yaxis: {visible: false, range: [-1, 1]}
-// };
-
-// var data = [traceA];
-
-
-
-
-
-
+          // Drawing and updating the chart
+          // element, chartwidth )(height is always 0.5 * chartWidth), options, value
+          // needle value is a number from 0 to 100.
+          // console.log(currentDemographics[0].washFreq);
+          needle = currentDemographics[0].washFreq * (100.0/9.0);
+          GaugeChart.gaugeChart(element, 400, gaugeOptions).updateNeedle(needle);
     };
 
-    var innerContainer = document.querySelector('[data-num="0"'),
-        plotEl = innerContainer.querySelector('.plot'),
+    var innerContainer = document.querySelector('[data-num="1"'),
         personSelector = innerContainer.querySelector('.persondata');
 
     function assignOptions(textArray, selector) {
@@ -543,83 +221,3 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
     personSelector.addEventListener('change', updatePerson, false);
 });
-
-
-// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv', function(err, rows){
-
-//     function unpack(rows, key) {
-//         return rows.map(function(row) { return row[key]; });
-//     }
-
-//     var allCountryNames = unpack(rows, 'country'),
-//         allYear = unpack(rows, 'year'),
-//         allGdp = unpack(rows, 'gdpPercap'),
-//         listofCountries = [],
-//         currentCountry,
-//         currentGdp = [],
-//         currentYear = [];
-
-//     for (var i = 0; i < allCountryNames.length; i++ ){
-//         if (listofCountries.indexOf(allCountryNames[i]) === -1 ){
-//             listofCountries.push(allCountryNames[i]);
-//         }
-//     }
-
-//     function getCountryData(chosenCountry) {
-//         currentGdp = [];
-//         currentYear = [];
-//         for (var i = 0 ; i < allCountryNames.length ; i++){
-//             if ( allCountryNames[i] === chosenCountry ) {
-//                 currentGdp.push(allGdp[i]);
-//                 currentYear.push(allYear[i]);
-//             }
-//         }
-//     };
-
-//     // Default Country Data
-//     setBubblePlot('Afghanistan');
-
-//     function setBubblePlot(chosenCountry) {
-//         getCountryData(chosenCountry);
-
-//         var trace1 = {
-//             x: currentYear,
-//             y: currentGdp,
-//             mode: 'bar',
-//             marker: {
-//                 size: 12,
-//                 opacity: 0.5
-//             }
-//         };
-
-//         var data = [trace1];
-
-//         var layout = {
-//             title:'Line and Scatter Plot',
-//             height: 400,
-//             width: 480
-//         };
-
-//         Plotly.newPlot('plot', data, layout);
-//     };
-
-//     var innerContainer = document.querySelector('[data-num="0"'),
-//         plotEl = innerContainer.querySelector('.plot'),
-//         countrySelector = innerContainer.querySelector('.countrydata');
-
-//     function assignOptions(textArray, selector) {
-//         for (var i = 0; i < textArray.length;  i++) {
-//             var currentOption = document.createElement('option');
-//             currentOption.text = textArray[i];
-//             selector.appendChild(currentOption);
-//         }
-//     }
-
-//     assignOptions(listofCountries, countrySelector);
-
-//     function updateCountry(){
-//         setBubblePlot(countrySelector.value);
-//     }
-
-//     countrySelector.addEventListener('change', updateCountry, false);
-// });
