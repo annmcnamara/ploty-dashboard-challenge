@@ -64,8 +64,9 @@ The following task is advanced and therefore optional.
 
 ## Deployment
 
-The app was deployed to a free static page hosting service GitHub Pages.
+The app was deployed to a free static page hosting service GitHub Pages. <annmcnamara.github.io/dashboard/Code/index.html>.
 
+## Analysis.
 
 ### Data Source
 
