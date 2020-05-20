@@ -58,10 +58,10 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
                 var demographicInfo= {"id"        :chosenPerson,  //or could use metadata[i] here
                                       "ethnicity" :allEthnicity[i],
-                                      "gender"    :allGender[i],
+                                      "gender"    :allGender[i].toUpperCase(),
                                       "age"       :allAges[i], 
                                       "location"  :allLocations[i], 
-                                      "bbType"    :allBBType[i], 
+                                      "bbType"    :allBBType[i].toUpperCase(), 
                                       "washFreq"  :allWashFrequency[i]};
 
                 // console.log("ID",        demographicInfo.id);
@@ -156,7 +156,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
             mode: 'markers',
             marker: {
               color: marker_color,
-              size: marker_size
+              size : marker_size
             }
           };
           

@@ -50,25 +50,18 @@ Additionally, you are welcome to create any layout that you would like for your 
 
 The following task is advanced and therefore optional.
 
-* Adapt the Gauge Chart from <https://plot.ly/javascript/gauge-charts/> to plot the weekly washing frequency of the individual.
+* The advanced challenge to adapt the Gauge Chart from <https://plot.ly/javascript/gauge-charts/> to plot the weekly washing frequency of the individual proved somewhat cumbersome. I decided to use a free library <https://github.com/recogizer/gauge-chart/> after trying to do it using javascript, and even exploring using pure css.  The free library proved to be the cleanest solution. 
 
 * You will need to modify the example gauge code to account for values ranging from 0 through 9.
 
-* Update the chart whenever a new sample is selected.
+* The chart is updated whenever a new sample is selected.
 
 ![Weekly Washing Frequency Gauge](Images/gauge.png)
 
 ## Deployment
 
-Deploy your app to a free static page hosting service, such as GitHub Pages or Heroku. Submit the links to your deployment and your GitHub repo.
+The app was deployed to a free static page hosting service GitHub Pages.
 
-Here is a [guide](Heroku_Deployment_Guide.md) to deploying your app Heroku. 
-
-## Hints
-
-* Use `console.log` inside of your JavaScript code to see what your data looks like at each step.
-
-* Refer to the [Plotly.js documentation](https://plot.ly/javascript/) when building the plots.
 
 ### Data Source
 
