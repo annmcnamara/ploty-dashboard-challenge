@@ -104,7 +104,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
         text_labels = current_otu_label[0].filter(function(d,i) {return i<10;});
         text_labels.reverse();
-        console.log("TEXT LABELS" + text_labels)
+        console.log("TEXT LABELS " + text_labels)
         y.reverse();
         y = y.map(function(d, i) {return ("OTU "+d)});
 
@@ -159,9 +159,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         marker_size  = current_sample[0];
         marker_color = current_otu_id[0];
         text_values  = current_otu_label[0];
-        text_values = ['a', 'b', 'c'];
-        text_values = current_otu_label[0].map(d=>d);
-        console.log ("MARKDER " + text_values)
+        //text_values = current_otu_label[0].map(d=>d);
 
         var trace2 = {
             x: x_values,
@@ -235,3 +233,4 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
     personSelector.addEventListener('change', updatePerson, false);
 });
+// ann mcnamara 2020
