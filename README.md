@@ -52,7 +52,11 @@ The following task is advanced and therefore optional.
 
 * The advanced challenge to adapt the Gauge Chart from <https://plot.ly/javascript/gauge-charts/> to plot the weekly washing frequency of the individual proved somewhat cumbersome. I decided to use a free library <https://github.com/recogizer/gauge-chart/> after trying to do it using javascript, and even exploring using pure css.  The free library proved to be the cleanest solution. 
 
-* You will need to modify the example gauge code to account for values ranging from 0 through 9.
+* To use this library `<script src="https://unpkg.com/gauge-chart@latest/dist/bundle.js"></script>` is added to the index.html file.  An example gauge was provided as shown below. 
+
+![Code to include Gauge](Images/gauge.png)
+
+* The example above was  modified to account for values ranging from 0 through 9, add arcs and correctly place the guage needle. 
 
 * The chart is updated whenever a new sample is selected.
 
