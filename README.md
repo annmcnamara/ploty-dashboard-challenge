@@ -64,9 +64,12 @@ The following task is advanced and therefore optional.
 
 ## Deployment
 
-The app was deployed to a free static page hosting service GitHub Pages. [http://annmcnamara.github.io/dashboard/Code/index.html](http://annmcnamara.github.io/dashboard/Code/index.html).
+The app was deployed to a free static page hosting service - GitHub Pages. [http://annmcnamara.github.io/dashboard/Code/index.html](http://annmcnamara.github.io/dashboard/Code/index.html).
 
 ## Analysis.
+Examining all the factors including age, sex, ethnicity, innie vs outie, and frequency of washing – there appear to be no differences in the number and kinds of bacteria  found in a particular person.
+
+This is an area of ongoing research...
 
 ### Data Source
 
