@@ -1,7 +1,13 @@
 Plotly.d3.json("./samples.json", function (error, rows) {
+
+    //a general function to unpack data structures
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
+
+    // VARIABLE DECLARATION
+
+    // Unpack all the data related to each person
 
     var people = unpack(rows.samples, 'id'),
         all_samples       = unpack(rows.samples, 'sample_values'),
@@ -18,7 +24,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
     // console.log (allOTU_labels)
     // console.log (people)
 
-
+    // unpack all the meta data
     var metadata         = unpack(rows.metadata, 'id'), 
         allEthnicity     = unpack(rows.metadata, 'ethnicity'), 
         allGender        = unpack(rows.metadata, 'gender'),
@@ -37,13 +43,16 @@ Plotly.d3.json("./samples.json", function (error, rows) {
     // console.log(metadata);
 
 
+    //create a list of people 
     for (var i = 0; i < people.length; i++ ){
         if (listofPeople.indexOf(people[i]) === -1 ){
             listofPeople.push(people[i]);
         }
     }
 
+    // a function to get the data for the selected sample(person)
     function getPersonData(chosenPerson) {
+        //clear the arrays
         current_sample      = [];
         current_otu_id      = [];
         current_otu_label   = [];
@@ -82,6 +91,8 @@ Plotly.d3.json("./samples.json", function (error, rows) {
     //set the default
     setBubblePlot('940');
 
+
+    // populate the charts and the card data. 
     function setBubblePlot(chosenPerson) {
         getPersonData(chosenPerson);
         console.log(current_sample[0]);
@@ -93,7 +104,7 @@ Plotly.d3.json("./samples.json", function (error, rows) {
 
         text_labels = current_otu_label[0].filter(function(d,i) {return i<10;});
         text_labels.reverse();
-        console.log(text_labels)
+        console.log("TEXT LABELS" + text_labels)
         y.reverse();
         y = y.map(function(d, i) {return ("OTU "+d)});
 
@@ -147,7 +158,10 @@ Plotly.d3.json("./samples.json", function (error, rows) {
         y_values     = current_sample[0];
         marker_size  = current_sample[0];
         marker_color = current_otu_id[0];
-        text_values  = current_otu_label[0]
+        text_values  = current_otu_label[0];
+        text_values = ['a', 'b', 'c'];
+        text_values = current_otu_label[0].map(d=>d);
+        console.log ("MARKDER " + text_values)
 
         var trace2 = {
             x: x_values,
