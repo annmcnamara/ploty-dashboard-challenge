@@ -54,7 +54,7 @@ The following task is advanced and therefore optional.
 
 * To use this library `<script src="https://unpkg.com/gauge-chart@latest/dist/bundle.js"></script>` is added to the index.html file.  An example gauge was provided as shown below. 
 
-![Code to include Gauge](Images/gauge.png)
+![Code to include Gauge](Images/gauge2.png)
 
 * The example above was  modified to account for values ranging from 0 through 9, add arcs and correctly place the guage needle. 
 
